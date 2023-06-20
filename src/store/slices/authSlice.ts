@@ -22,10 +22,20 @@ const initialState: AuthState = {
 
 export const fetchLogin = createAsyncThunk("auth/login", async (data: {}) => {
   const response = await axios
-    .post("http://localhost:7000/login", data)
-    .then(res => res.data);
+    .post("http://localhost:7000/login", data, {
+      withCredentials: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Authorization",
+        "Access-Control-Allow-Methods":
+          "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+    .then((res) => res.data);
 
-    return response;
+  console.log(response);
+  return response;
 });
 
 export const AuthSlice = createSlice({

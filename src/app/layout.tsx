@@ -5,6 +5,7 @@ import "./globals.css";
 
 // Components
 import Header from "@/components/header/Header";
+import { Providers } from "@/store/provider";
 
 export default function RootLayout({
   children,
@@ -15,8 +16,10 @@ export default function RootLayout({
     <html lang="pt-br">
       <head />
       <body>
-        <Header />
-        {children}
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

@@ -9,8 +9,22 @@ import "./styles.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useFormik } from "formik";
+import { useAppDispatch } from "@/store/store";
+import { fetchLogin } from "@/store/slices/authSlice";
 
 export default function Login() {
+  const dispatch = useAppDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log(values)
+      dispatch(fetchLogin(values))
+    },
+  });
   return (
     <>
       <main>
@@ -34,7 +48,9 @@ export default function Login() {
         >
           <h3>Faça o Login aqui!</h3>
           <TextField
-            id="label-email"
+            id=" email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
             type="email"
             label="Email"
             name="email"
@@ -45,7 +61,9 @@ export default function Login() {
             }}
           />
           <TextField
-            id="label-password"
+            id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
             type="password"
             label="Password"
             name="password"
@@ -56,6 +74,7 @@ export default function Login() {
             }}
           />
           <Button
+            onClick={() => formik.handleSubmit()}
             variant="contained"
             size="large"
             sx={{
