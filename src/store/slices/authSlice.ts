@@ -27,6 +27,7 @@ export const fetchLogin = createAsyncThunk("auth/login", async (data: {}) => {
     .then((res) => res.data);
 
   authService.loginUser(response)
+  authService.readUser();
   console.log(response);
   return response;
 });
